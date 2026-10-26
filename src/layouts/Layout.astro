@@ -1,0 +1,54 @@
+---
+import '@/styles/global.css';
+import { BOOT_STORAGE_KEY, site } from '@/data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = `${site.name} · ${site.role}`, description = site.description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#e6e8eb" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+
+    <!-- Geist (texto) y Fira Code (código) desde Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Geist:wght@100..900&display=swap"
+    />
+
+    <!--
+      Si en esta sesión ya se "creó" el portafolio, se marca <html class="booted">
+      antes del primer pintado para que la pantalla de comando no parpadee al recargar.
+    -->
+    <script is:inline define:vars={{ key: BOOT_STORAGE_KEY }}>
+      try {
+        if (sessionStorage.getItem(key)) document.documentElement.classList.add('booted');
+      } catch (e) {}
+    </script>
+    <noscript>
+      <style>
+        .boot { display: none !important; }
+        html { overflow: auto !important; }
+      </style>
+    </noscript>
+  </head>
+  <body data-world="canvas">
+    <slot />
+  </body>
+</html>

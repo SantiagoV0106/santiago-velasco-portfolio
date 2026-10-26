@@ -1,0 +1,47 @@
+---
+/**
+ * Página principal.
+ * Islas de React (cargan JS): Boot, Hero, Inspector, Gallery, Terminal, CopyEmail.
+ * El resto se envía como HTML estático.
+ */
+import Layout from '@/layouts/Layout.astro';
+import Boot from '@/components/boot/Boot';
+import Nav from '@/components/layout/Nav';
+import Inspector from '@/components/layout/Inspector';
+import WorldPill from '@/components/layout/WorldPill';
+import Hero from '@/components/hero/Hero';
+import Process from '@/components/process/Process';
+import Gallery from '@/components/projects/Gallery';
+import About from '@/components/about/About';
+import Terminal from '@/components/about/Terminal';
+import Contact from '@/components/contact/Contact';
+import CopyEmail from '@/components/contact/CopyEmail';
+import { projects } from '@/data/projects';
+import { site } from '@/data/site';
+---
+
+<Layout>
+  <Boot client:load />
+
+  <Nav>
+    <Inspector client:idle />
+  </Nav>
+  <WorldPill />
+
+  <main>
+    <Hero client:load />
+    <Process />
+    <Gallery client:idle projects={projects} />
+    <About>
+      <Terminal client:visible />
+    </About>
+    <Contact>
+      <CopyEmail client:visible email={site.email} />
+    </Contact>
+  </main>
+</Layout>
+
+<script>
+  import { initScene } from '@/scripts/scene';
+  initScene();
+</script>

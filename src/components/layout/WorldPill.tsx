@@ -1,0 +1,24 @@
+/**
+ * Indicador fijo del "mundo" actual + etiqueta "Tú" que sigue al cursor.
+ * Ambos se actualizan desde src/scripts/scene.ts (sin JS de React).
+ */
+export default function WorldPill() {
+  return (
+    <>
+      <div
+        className="fixed bottom-[calc(16px+env(safe-area-inset-bottom,0px))] left-[max(16px,env(safe-area-inset-left,0px))] z-40 flex items-center gap-2 rounded-full bg-fg px-3 py-2 font-mono text-xs text-world transition-colors duration-700"
+        aria-live="polite"
+      >
+        <b className="size-[7px] rounded-full bg-sel" />
+        Mundo · <span data-world-name>Lienzo</span>
+      </div>
+      <div
+        className="pointer-events-none fixed top-0 left-0 z-[70] rounded-[0_8px_8px_8px] bg-sel px-2 py-1.5 text-xs leading-none font-semibold text-white opacity-0 transition-opacity duration-300 will-change-transform"
+        data-me
+        aria-hidden="true"
+      >
+        Tú
+      </div>
+    </>
+  );
+}
