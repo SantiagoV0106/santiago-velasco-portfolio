@@ -11,11 +11,11 @@ const STEPS = [
   },
   {
     title: 'Código',
-    text: 'Traduzco cada componente a React, Next.js o Astro, con props claras y estilos que respetan los tokens del diseño.',
+    text: 'Traduzco cada componente a React, con props claras y estilos que respetan los tokens del diseño.',
   },
   {
     title: 'Producto',
-    text: 'Entrego un sitio rápido y accesible, medido con Lighthouse y listo para crecer con nuevas páginas.',
+    text: 'Entrego un sitio rápido y accesible, listo para ser usado.',
   },
 ];
 
@@ -61,14 +61,14 @@ export default function Process() {
                 </li>
               ))}
             </ol>
-            <div className="mt-8 hidden h-0.5 max-w-[420px] bg-line lg:block" aria-hidden="true">
+            <div className="mt-8 hidden h-0.5 max-w-105 bg-line lg:block" aria-hidden="true">
               <i className="block h-full origin-left scale-x-0 bg-sel" data-process-bar />
             </div>
           </div>
 
           {/* Escenario: un mismo componente en tres etapas */}
           <div
-            className="relative h-[min(56svh,440px)] w-full max-w-[640px] sm:aspect-[4/3] sm:h-auto lg:aspect-[5/4] lg:max-w-none"
+            className="relative h-[min(56svh,440px)] w-full max-w-160 sm:aspect-4/3 sm:h-auto lg:aspect-5/4 lg:max-w-none"
             data-layer="Componente / ProjectCard"
           >
             {/* 01 — Diseño */}
@@ -85,9 +85,9 @@ export default function Process() {
                 <div className="h-[7%] w-[64%] rounded-sm bg-[#2a2e35]" />
                 <div className="h-[4%] w-[82%] rounded-sm bg-[#c9ced6]" />
                 <div className="flex gap-[3%]">
-                  <i className="h-[22px] w-[16%] rounded-full border-[1.5px] border-dashed border-[#b6bcc6]" />
-                  <i className="h-[22px] w-[16%] rounded-full border-[1.5px] border-dashed border-[#b6bcc6]" />
-                  <i className="h-[22px] w-[16%] rounded-full border-[1.5px] border-dashed border-[#b6bcc6]" />
+                  <i className="h-5.5 w-[16%] rounded-full border-[1.5px] border-dashed border-[#b6bcc6]" />
+                  <i className="h-5.5 w-[16%] rounded-full border-[1.5px] border-dashed border-[#b6bcc6]" />
+                  <i className="h-5.5 w-[16%] rounded-full border-[1.5px] border-dashed border-[#b6bcc6]" />
                 </div>
                 <div className="h-[9%] w-[30%] rounded-md bg-sel" />
                 <span className="redline v" style={{ left: '3%', top: 0, height: '6%' }}>
@@ -125,7 +125,7 @@ export default function Process() {
             {/* 03 — Producto */}
             <div className="stage-layer grid grid-rows-[auto_auto] content-start gap-4 lg:grid-rows-[minmax(0,1fr)_auto]" data-stage={2} aria-hidden="true">
               <article className="grid overflow-hidden rounded-2xl bg-white text-ink shadow-[0_24px_60px_rgba(18,20,24,0.14)] sm:grid-cols-[1.15fr_1fr]">
-                <div className="p-cover min-h-[90px] sm:min-h-[180px]" />
+                <div className="p-cover min-h-22.5 sm:min-h-45" />
                 <div className="flex flex-col justify-center gap-2 p-4 sm:gap-2.5 sm:p-6">
                   <div className="flex flex-wrap gap-1.5">
                     <span className="rounded-full bg-[#eef0f3] px-2 py-1.5 font-mono text-[11.5px] leading-none text-[#30353d]">Astro</span>
@@ -139,7 +139,7 @@ export default function Process() {
               <div className="grid grid-cols-4 gap-1 rounded-2xl bg-white p-2.5 text-ink shadow-[0_14px_40px_rgba(18,20,24,0.08)] sm:gap-2.5 sm:p-3.5">
                 {LIGHTHOUSE.map((label) => (
                   <div key={label} className="flex flex-col items-center gap-1.5 text-center">
-                    <svg viewBox="0 0 44 44" className="size-10 sm:size-[54px]">
+                    <svg viewBox="0 0 44 44" className="size-10 sm:size-13.5">
                       <circle className="lh-ring bg" cx="22" cy="22" r="18" />
                       <circle className="lh-ring fg" cx="22" cy="22" r="18" data-lh-ring />
                       <text className="lh-num" x="22" y="27" textAnchor="middle" data-lh-num>
