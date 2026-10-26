@@ -18,108 +18,214 @@
  *   3. Quita `isExample: true`
  * ─────────────────────────────────────────────────────────────
  */
-import type { Project } from '@/types/project';
+import type { Project } from "@/types/project";
 
 export const projects: Project[] = [
   {
-    slug: 'nomada-estudio',
-    name: 'Nómada Estudio',
-    sector: 'Agencia creativa',
-    category: 'Sitio web',
-    stack: ['Astro', 'Figma'],
-    role: 'Diseño UI y desarrollo frontend',
+    slug: "transvego",
+    name: "Transvego",
+    sector: "Transporte",
+    category: "Sitio web",
+    stack: ["Astro", "Motion", "Figma"],
+    role: "Diseño UI y desarrollo frontend",
+    year: 2026,
     summary:
-      'Sitio institucional para una agencia que necesitaba mostrar su trabajo con imágenes grandes sin sacrificar velocidad.',
+      "Sitio web corporativo diseñado y desarrollado de principio a fin, desde los primeros conceptos en Figma hasta su implementación en producción.",
     highlights: [
-      'Páginas estáticas con Astro y carga diferida de imágenes',
-      'Plantilla reutilizable para casos de estudio',
-      'Animaciones de entrada que respetan el movimiento reducido',
+      "Diseño UI/UX desde la conceptualización hasta el prototipo en Figma",
+      "Desarrollo frontend alineado con la identidad visual de la empresa",
+      "Implementación de una experiencia web moderna y funcional",
     ],
-    mock: { layout: 'landing', palette: { bg: '#1E1D1B', accent: '#FF6B3D', ink: '#F4EFE8' } },
-    isExample: true,
-  },
-  {
-    slug: 'cuenta-clara',
-    name: 'Cuenta Clara',
-    sector: 'Fintech',
-    category: 'Plataforma',
-    stack: ['Next.js', 'React'],
-    role: 'Desarrollo frontend',
-    summary: 'Panel para que pequeñas empresas sigan sus ingresos y gastos en un solo lugar.',
-    highlights: [
-      'Gráficas y tablas navegables con teclado',
-      'Estados de carga, vacío y error diseñados desde Figma',
-      'Librería de componentes compartida con producto',
-    ],
-    mock: {
-      layout: 'dashboard',
-      palette: { bg: '#EEF3EF', accent: '#1F8A5B', ink: '#0F1F18' },
-      bars: [40, 62, 48, 80, 66, 92, 74],
+    links: { live: "https://transvego.com" },
+    cover: {
+      type: "video",
+      src: "/projects/transvego.webm",
+      poster: "/projects/transvego-cover.webp",
+      alt: "Transvego S.A.S",
     },
-    isExample: true,
-  },
-  {
-    slug: 'turno',
-    name: 'Turno',
-    sector: 'Salud',
-    category: 'UI/UX',
-    stack: ['Figma'],
-    role: 'Diseño UI/UX',
-    summary: 'Flujo de agendamiento de citas médicas pensado para personas mayores.',
-    highlights: [
-      'Pruebas con usuarios y mapa del flujo',
-      'Prototipo navegable en Figma',
-      'Texto grande y contraste AA en todas las pantallas',
-    ],
-    mock: { layout: 'mobile', palette: { bg: '#DCE6FF', accent: '#2B59F0', ink: '#0B1533' } },
-    isExample: true,
-  },
-  {
-    slug: 'lana-y-lino',
-    name: 'Lana & Lino',
-    sector: 'Moda',
-    category: 'Sitio web',
-    stack: ['Next.js', 'React'],
-    role: 'Desarrollo frontend',
-    summary: 'Tienda en línea para una marca de ropa en fibras naturales.',
-    highlights: ['Catálogo con filtros instantáneos', 'Fichas de producto pensadas para SEO', 'Checkout con menos pasos'],
-    mock: { layout: 'shop', palette: { bg: '#EFE6DA', accent: '#B4532A', ink: '#2A1C14' } },
-    isExample: true,
-  },
-  {
-    slug: 'fogon-23',
-    name: 'Fogón 23',
-    sector: 'Restaurante',
-    category: 'Sitio web',
-    stack: ['Astro'],
-    role: 'Diseño y desarrollo',
-    summary: 'Sitio con menú, horarios y reservas para un restaurante de cocina a la brasa.',
-    highlights: [
-      'Menú editable sin tocar código',
-      'Formulario de reservas accesible',
-      'Puntaje de 100 en Lighthouse como objetivo',
-    ],
-    mock: { layout: 'landing', palette: { bg: '#2B0F0A', accent: '#F2A541', ink: '#FBE9D0' } },
-    isExample: true,
-  },
-  {
-    slug: 'aula-viva',
-    name: 'Aula Viva',
-    sector: 'Educación',
-    category: 'Plataforma',
-    stack: ['React', 'Figma'],
-    role: 'Design system y frontend',
-    summary: 'Plataforma de cursos en línea con un sistema de diseño compartido entre Figma y React.',
-    highlights: [
-      'Tokens de color, tipografía y espaciado sincronizados',
-      'Componentes documentados con sus estados',
-      'Vista de progreso para estudiantes',
-    ],
     mock: {
-      layout: 'dashboard',
-      palette: { bg: '#1A1640', accent: '#7CE0C3', ink: '#EDEBFF' },
-      bars: [30, 45, 70, 58, 84, 77, 95],
+      layout: "landing",
+      palette: { bg: "#1E1D1B", accent: "#FF6B3D", ink: "#F4EFE8" },
     },
-    isExample: true,
+  },
+
+  {
+    slug: "campana-sergio-fajardo",
+    name: "Campaña Sergio Fajardo",
+    sector: "Política",
+    category: "Sitio web",
+    year: 2026,
+    stack: ["Next.js", "Motion", "ReactBits", "Figma"],
+    role: "Desarrollo frontend",
+    summary:
+      "Sitio web de campaña desarrollado junto a Khaoscore para comunicar la propuesta política de Sergio Fajardo mediante una experiencia digital clara, accesible y alineada con la identidad visual de la campaña.",
+    highlights: [
+      "Colaboración en el diseño, la estructura y la estética del sitio web",
+      "Desarrollo de componentes frontend para comunicar la propuesta de campaña",
+      "Enfoque en rendimiento, accesibilidad y navegación intuitiva",
+    ],
+    links: {
+      live: "https://www.sergiofajardo.com/",
+    },
+
+    cover: {
+      type: "video",
+      src: "/projects/sergio-fajardo.webm",
+      poster: "/projects/sergio-fajardo-cover.webp",
+      alt: "Campaña Sergio Fajardo",
+    },
+    mock: {
+      layout: "landing",
+      palette: { bg: "#1E1D1B", accent: "#FF6B3D", ink: "#F4EFE8" },
+    },
+  },
+
+  {
+    slug: "khaoscore",
+    name: "Khaoscore",
+    sector: "Agencia digital",
+    category: "Sitio web",
+    year: 2025,
+    stack: ["Astro", "ReactBits", "Motion"],
+    role: "Desarrollo frontend",
+    summary:
+      "Implementación frontend de sitios web y experiencias visuales para una agencia digital especializada en diseño.",
+    highlights: [
+      "Desarrollo de interfaces y experiencias visuales interactivas",
+      "Implementación de animaciones y transiciones con Motion",
+      "Optimización de la usabilidad y el rendimiento del sitio web",
+    ],
+    links: {
+      live: "https://khaoscore.com",
+    },
+    cover: {
+      type: "video",
+      src: "/projects/khaos.webm",
+      poster: "/projects/khaos-cover.webp",
+      alt: "Khaoscore",
+    },
+    mock: {
+      layout: "landing",
+      palette: { bg: "#1E1D1B", accent: "#FF6B3D", ink: "#F4EFE8" },
+    },
+  },
+
+  {
+    slug: "jazz-design-system",
+    name: "Jazz Design System",
+    sector: "Foodtech",
+    category: "UI/UX",
+    year: 2024,
+    stack: ["Figma"],
+    role: "Diseño UI/UX",
+    summary:
+      "Sistema de diseño para Blue Apron enfocado en establecer un lenguaje visual consistente y una biblioteca de componentes reutilizables para sus experiencias digitales.",
+    highlights: [
+      "Definición de componentes y patrones de interfaz reutilizables",
+      "Organización de estilos visuales y jerarquías tipográficas",
+      "Creación de una base escalable para mantener la consistencia entre interfaces",
+    ],
+    links: {
+      figma:
+        "https://www.figma.com/design/R0euCPDfQnGlKY9JdyrK8o/Jazz-Design-System-for-Blue-Apron?node-id=0-1&p=f&t=9kzhkLih11VA8vwq-0",
+    },
+    cover: {
+      type: "image",
+      src: "projects/jazz-cover.webp",
+      alt: "Jazz",
+    },
+    mock: {
+      layout: "landing",
+      palette: { bg: "#1E1D1B", accent: "#FF6B3D", ink: "#F4EFE8" },
+    },
+  },
+
+  {
+    slug: "portal-conectmonos-eficacia",
+    name: "Portal Conectémonos",
+    sector: "Recursos humanos",
+    category: "Plataforma",
+    year: 2024,
+    stack: ["Figma"],
+    role: "Diseño UI/UX",
+    summary:
+      "Plataforma digital para Eficacia orientada a conectar a los colaboradores con información y recursos de la organización mediante una experiencia centralizada y fácil de navegar.",
+    highlights: [
+      "Diseño de interfaces para facilitar el acceso a la información corporativa",
+      "Organización visual de contenidos y recursos para los colaboradores",
+      "Diseño de una experiencia intuitiva y coherente con la identidad de Eficacia",
+    ],
+    links: {
+      behance:
+        "https://www.behance.net/gallery/201528415/Portal-Conectmonos-Eficacia",
+    },
+    cover: {
+      type: "image",
+      src: "projects/portal-conectemonos-cover.webp",
+      alt: "Portal Conectémenos",
+    },
+    mock: {
+      layout: "landing",
+      palette: { bg: "#1E1D1B", accent: "#FF6B3D", ink: "#F4EFE8" },
+    },
+  },
+
+  {
+    slug: "enerbit",
+    name: "enerBit",
+    sector: "Energía",
+    category: "Plataforma",
+    year: 2023,
+    stack: ["Figma"],
+    role: "Diseño UI/UX",
+    summary:
+      "Proyecto de diseño UI/UX para enerBit, enfocado en crear una experiencia digital clara e intuitiva dentro del sector energético, facilitando la interacción de los usuarios con la plataforma.",
+    highlights: [
+      "Diseño de interfaces centradas en las necesidades de los usuarios",
+      "Organización de la información para facilitar la navegación",
+      "Desarrollo de propuestas visuales y prototipos en Figma",
+    ],
+    links: {
+      behance: "https://www.behance.net/gallery/185492437/enerBit-UIUX-Project",
+    },
+    cover: {
+      type: "image",
+      src: "projects/enerbit-cover.webp",
+      alt: "enerBit",
+    },
+    mock: {
+      layout: "landing",
+      palette: { bg: "#1E1D1B", accent: "#FF6B3D", ink: "#F4EFE8" },
+    },
+  },
+
+  {
+    slug: "hospital-padrino",
+    name: "Hospital Padrino",
+    sector: "Salud",
+    category: "Plataforma",
+    year: 2022,
+    stack: ["Figma"],
+    role: "Diseño UI/UX",
+    summary:
+      "Proyecto de diseño UI/UX enfocado en crear una experiencia digital para el sector salud, facilitando el acceso a la información mediante interfaces claras y una navegación intuitiva.",
+    highlights: [
+      "Diseño de interfaces centradas en las necesidades de los usuarios",
+      "Definición de una estructura visual clara y accesible",
+      "Prototipado de experiencias digitales en Figma",
+    ],
+    links: {
+      behance:
+        "https://www.behance.net/gallery/145695963/Hospital-Padrino-UIUX-Project",
+    },
+    cover: {
+      type: "image",
+      src: "projects/hospital-padrino-cover.webp",
+      alt: "Hospital Padrino",
+    },
+    mock: {
+      layout: "landing",
+      palette: { bg: "#1E1D1B", accent: "#FF6B3D", ink: "#F4EFE8" },
+    },
   },
 ];

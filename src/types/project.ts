@@ -9,10 +9,10 @@
  *   - Detalle ......... src/components/projects/ProjectDialog.tsx  (ventana con el caso completo)
  */
 
-export type ProjectCategory = 'Sitio web' | 'Plataforma' | 'UI/UX';
+export type ProjectCategory = "Sitio web" | "Plataforma" | "UI/UX";
 
 /** Distribución del mock generado cuando el proyecto aún no tiene imagen o video. */
-export type MockLayout = 'landing' | 'dashboard' | 'mobile' | 'shop';
+export type MockLayout = "landing" | "dashboard" | "mobile" | "shop";
 
 export interface ProjectPalette {
   /** Fondo del mock */
@@ -25,9 +25,9 @@ export interface ProjectPalette {
 
 /** Medio real del proyecto. Si existe, reemplaza al mock generado. */
 export type ProjectMedia =
-  | { type: 'image'; src: string; alt: string }
+  | { type: "image"; src: string; alt: string }
   | {
-      type: 'video';
+      type: "video";
       src: string;
       /** Imagen que se ve mientras el video carga */
       poster?: string;
@@ -38,6 +38,7 @@ export interface ProjectLinks {
   live?: string;
   repo?: string;
   figma?: string;
+  behance?: string;
 }
 
 export interface Project {

@@ -135,7 +135,7 @@ export default function Gallery({ projects }: Props) {
                     type="button"
                     aria-pressed={active}
                     onClick={() => setFilter(f.value)}
-                    className={`h-[38px] cursor-pointer rounded-full border-[1.5px] border-fg px-4 text-sm font-semibold transition-colors ${
+                    className={`h-9.5 cursor-pointer rounded-full border-[1.5px] border-fg px-4 text-sm font-semibold transition-colors ${
                       active ? 'bg-fg text-world' : 'bg-transparent text-fg hover:bg-surface'
                     }`}
                   >
@@ -157,7 +157,7 @@ export default function Gallery({ projects }: Props) {
           </div>
 
           <p className="container-x m-0 font-mono text-xs text-muted">
-            Proyectos de ejemplo · Abre una tarjeta para ver el caso
+            Proyectos · Abre una tarjeta para ver el detalle
             {!pinned ? ' · Desliza para ver más' : ''}
           </p>
         </div>

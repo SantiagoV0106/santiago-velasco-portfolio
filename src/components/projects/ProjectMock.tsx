@@ -93,7 +93,7 @@ function GeneratedMock({ project }: { project: Project }) {
 
 export default function ProjectMock({ project, autoPlay = true }: Props) {
   const badge = project.isExample ? (
-    <span className="absolute top-3 right-3 z-[2] rounded bg-white/85 px-1.5 py-1 font-mono text-[10.5px] leading-none font-semibold tracking-wider text-ink uppercase">
+    <span className="absolute top-3 right-3 z-2 rounded bg-white/85 px-1.5 py-1 font-mono text-[10.5px] leading-none font-semibold tracking-wider text-ink uppercase">
       Ejemplo
     </span>
   ) : null;
@@ -102,7 +102,7 @@ export default function ProjectMock({ project, autoPlay = true }: Props) {
 
   if (cover?.type === 'image') {
     return (
-      <div className="relative aspect-[4/3] max-w-full overflow-hidden rounded-xl">
+      <div className="relative aspect-4/3 max-w-full overflow-hidden rounded-xl">
         {badge}
         <img src={cover.src} alt={cover.alt} loading="lazy" decoding="async" className="size-full object-cover" />
       </div>
@@ -111,7 +111,7 @@ export default function ProjectMock({ project, autoPlay = true }: Props) {
 
   if (cover?.type === 'video') {
     return (
-      <div className="relative aspect-[4/3] max-w-full overflow-hidden rounded-xl">
+      <div className="relative aspect-4/3 max-w-full overflow-hidden rounded-xl">
         {badge}
         <video
           src={cover.src}

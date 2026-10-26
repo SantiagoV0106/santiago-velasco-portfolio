@@ -32,12 +32,12 @@ export default function ProjectCard({ project, index, tilt, onOpen }: Props) {
   return (
     <button
       type="button"
-      className="project-card flex w-[min(82vw,420px)] flex-none cursor-pointer flex-col gap-3.5 border-0 bg-transparent p-0 text-left text-inherit [perspective:900px] lg:w-[clamp(320px,31vw,470px)]"
+      className="project-card flex w-[min(82vw,420px)] flex-none cursor-pointer flex-col gap-3.5 border-0 bg-transparent p-0 text-left text-inherit perspective-[900px] lg:w-[clamp(320px,31vw,470px)]"
       onPointerMove={onMove}
       onPointerLeave={onLeave}
       onClick={() => onOpen(project)}
       data-layer={`Card / ${project.name}`}
-      aria-label={`Ver caso: ${project.name}, ${project.sector}`}
+      aria-label={`Ver detalle: ${project.name}, ${project.sector}`}
     >
       <div ref={tiltRef} className="card-tilt w-full rounded-xl shadow-[0_18px_40px_rgba(18,20,24,0.18)]">
         <ProjectMock project={project} />

@@ -15,9 +15,9 @@ interface LinkItem {
 export default function Contact({ children }: { children?: ReactNode }) {
   const links: LinkItem[] = [
     { label: 'GitHub', href: site.github, external: true },
+    { label: 'Behance', href: site.behance, external: true },
     ...(site.linkedin ? [{ label: 'LinkedIn', href: site.linkedin, external: true }] : []),
     { label: 'Hoja de vida (CV)', href: site.resume, external: true },
-    { label: 'Correo', href: `mailto:${site.email}`, external: false },
   ];
 
   return (
@@ -26,7 +26,7 @@ export default function Contact({ children }: { children?: ReactNode }) {
         <p className="eyebrow">Contacto</p>
         <h2
           id="contacto-titulo"
-          className="m-0 max-w-[12ch] text-[clamp(46px,9.4vw,150px)] leading-[0.9] font-extrabold tracking-[-0.05em] text-balance"
+          className="m-0 max-w-[12ch] text-[clamp(46px,9.4vw,150px)] leading-[0.9] font-extrabold tracking-tighter text-balance"
           data-stretch
           data-layer="Texto / Título contacto"
         >

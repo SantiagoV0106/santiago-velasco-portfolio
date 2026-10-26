@@ -57,7 +57,7 @@ export default function ProjectDialog({ project, onClose }: Props) {
           <div className="grid gap-7 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
             <div>
               <p className="m-0 mb-3.5 max-w-[60ch]">{project.summary}</p>
-              <ul className="m-0 grid gap-1.5 pl-[18px]">
+              <ul className="m-0 grid gap-1.5 pl-4.5">
                 {project.highlights.map((h) => (
                   <li key={h}>{h}</li>
                 ))}
@@ -72,6 +72,26 @@ export default function ProjectDialog({ project, onClose }: Props) {
                 <dt className="mb-1 font-mono text-[11.5px] tracking-widest text-[#535a64] uppercase">Stack</dt>
                 <dd className="m-0 font-semibold">{project.stack.join(' · ')}</dd>
               </div>
+              {project.links?.behance && (
+                <div>
+                  <dt className="mb-1 font-mono text-[11.5px] tracking-widest text-[#535a64] uppercase">Behance</dt>
+                  <dd className="m-0 font-semibold">
+                    <a href={project.links.behance} target="_blank" rel="noopener noreferrer">
+                      Ver Behance ↗
+                    </a>
+                  </dd>
+                </div>
+              )}
+              {project.links?.figma && (
+                <div>
+                  <dt className="mb-1 font-mono text-[11.5px] tracking-widest text-[#535a64] uppercase">Figma</dt>
+                  <dd className="m-0 font-semibold">
+                    <a href={project.links.figma} target="_blank" rel="noopener noreferrer">
+                      Ver archivo Figma ↗
+                    </a>
+                  </dd>
+                </div>
+              )}
               {project.links?.live && (
                 <div>
                   <dt className="mb-1 font-mono text-[11.5px] tracking-widest text-[#535a64] uppercase">Sitio</dt>
