@@ -5,9 +5,10 @@ Convierto diseños de Figma en productos web rápidos, accesibles y escalables.
 
 ## La experiencia
 
-- **Empieza con un comando.** Al entrar, escribe `npm create portfolio@latest` en la terminal y mira cómo se "construye" el sitio. También puedes copiarlo, autocompletarlo con Tab o entrar directamente.
+- **Empieza con un comando.** Al entrar, la terminal escribe sola `npm create portfolio@latest` y "construye" el sitio frente a ti. Solo ocurre una vez por sesión, y puedes saltarla.
+- **En español e inglés.** Cambia de idioma con el interruptor de la barra superior sin perder la sección en la que estás.
 - **Mundos que cambian con el scroll.** Cada sección tiene su propio ambiente: lienzo, código, producto, galería, terminal y contacto.
-- **De Figma a producción.** Un mismo componente pasa de wireframe a código y a producto terminado mientras bajas.
+- **De Figma a producción.** Un mismo componente pasa de wireframe a código y, al final, a la tarjeta terminada con contenido real, mientras bajas.
 - **Galería de proyectos.** Tarjetas que avanzan en horizontal, se pueden filtrar por tipo y abren el detalle de cada caso.
 - **Modo inspección.** Activa "Inspeccionar" en la barra superior para ver el nombre y las medidas de cada elemento, como en Figma.
 - **Una terminal de verdad.** En "Sobre mí" puedes escribir comandos como `ayuda`, `stack` o `valores`.

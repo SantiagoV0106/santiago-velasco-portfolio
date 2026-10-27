@@ -1,10 +1,11 @@
 /**
  * Sección de contacto (HTML estático). El bloque del correo con botón de copiar
- * llega como `children` desde index.astro (isla de React).
- * Datos de contacto: src/data/site.ts
+ * llega como `children` desde la página (isla de React).
+ * Datos de contacto: src/data/site.ts · Textos: src/i18n/ui.ts → contact
  */
 import type { ReactNode } from 'react';
 import { site } from '@/data/site';
+import { t, type Lang } from '@/i18n/ui';
 
 interface LinkItem {
   label: string;
@@ -12,25 +13,27 @@ interface LinkItem {
   external: boolean;
 }
 
-export default function Contact({ children }: { children?: ReactNode }) {
+export default function Contact({ lang, children }: { lang: Lang; children?: ReactNode }) {
+  const ui = t(lang);
+  const copy = ui.contact;
   const links: LinkItem[] = [
     { label: 'GitHub', href: site.github, external: true },
     { label: 'Behance', href: site.behance, external: true },
     ...(site.linkedin ? [{ label: 'LinkedIn', href: site.linkedin, external: true }] : []),
-    { label: 'Hoja de vida (CV)', href: site.resume, external: true },
+    { label: copy.cv, href: site.resume, external: true },
   ];
 
   return (
-    <section id="contacto" data-world="blue" data-label="Contacto" aria-labelledby="contacto-titulo" className="pt-28 pb-10 md:pt-36">
+    <section id="contacto" data-world="blue" data-label={ui.worlds.contact} aria-labelledby="contacto-titulo" className="pt-28 pb-10 md:pt-36">
       <div className="container-x">
-        <p className="eyebrow">Contacto</p>
+        <p className="eyebrow">{copy.eyebrow}</p>
         <h2
           id="contacto-titulo"
           className="m-0 max-w-[12ch] text-[clamp(46px,9.4vw,150px)] leading-[0.9] font-extrabold tracking-tighter text-balance"
           data-stretch
-          data-layer="Texto / Título contacto"
+          data-layer={copy.layerTitle}
         >
-          ¿Construimos algo valioso?
+          {copy.title}
         </h2>
 
         {children}
@@ -66,8 +69,8 @@ export default function Contact({ children }: { children?: ReactNode }) {
 
       <footer className="container-x mt-24 flex flex-wrap justify-between gap-3 pb-20 font-mono text-[12.5px] text-muted md:mt-32">
         <span>© {new Date().getFullYear()} Santiago Velasco</span>
-        <span>Diseñado en Figma, construido con Astro y React</span>
-        <a href="#inicio">Volver arriba ↑</a>
+        <span>{copy.footerMade}</span>
+        <a href="#inicio">{copy.backToTop}</a>
       </footer>
     </section>
   );

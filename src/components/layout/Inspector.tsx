@@ -4,6 +4,7 @@
  */
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { t, type Lang } from '@/i18n/ui';
 
 interface Box {
   x: number;
@@ -13,7 +14,8 @@ interface Box {
   label: string;
 }
 
-export default function Inspector() {
+export default function Inspector({ lang }: { lang: Lang }) {
+  const copy = t(lang).nav;
   const [active, setActive] = useState(false);
   const [box, setBox] = useState<Box | null>(null);
   const current = useRef<HTMLElement | null>(null);
@@ -55,7 +57,7 @@ export default function Inspector() {
         type="button"
         aria-pressed={active}
         onClick={() => setActive((a) => !a)}
-        title="Muestra capas y medidas al pasar el cursor"
+        title={copy.inspectTitle}
         className={`inline-flex h-[34px] cursor-pointer items-center gap-2 rounded-lg border px-3 font-mono text-[12.5px] leading-none ${
           active ? 'border-sel bg-sel text-white' : 'border-line bg-surface text-fg'
         }`}
@@ -64,7 +66,7 @@ export default function Inspector() {
           <rect x="2" y="2" width="12" height="12" />
           <path d="M0 5h2M0 11h2M14 5h2M14 11h2M5 0v2M11 0v2M5 14v2M11 14v2" />
         </svg>
-        Inspeccionar
+        {copy.inspect}
       </button>
 
       {box &&

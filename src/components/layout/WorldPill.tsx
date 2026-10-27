@@ -2,7 +2,10 @@
  * Indicador fijo del "mundo" actual + etiqueta "Tú" que sigue al cursor.
  * Ambos se actualizan desde src/scripts/scene.ts (sin JS de React).
  */
-export default function WorldPill() {
+import { t, type Lang } from '@/i18n/ui';
+
+export default function WorldPill({ lang }: { lang: Lang }) {
+  const worlds = t(lang).worlds;
   return (
     <>
       <div
@@ -10,14 +13,14 @@ export default function WorldPill() {
         aria-live="polite"
       >
         <b className="size-[7px] rounded-full bg-sel" />
-        Mundo · <span data-world-name>Lienzo</span>
+        {worlds.label} · <span data-world-name>{worlds.canvas}</span>
       </div>
       <div
         className="pointer-events-none fixed top-0 left-0 z-[70] rounded-[0_8px_8px_8px] bg-sel px-2 py-1.5 text-xs leading-none font-semibold text-white opacity-0 transition-opacity duration-300 will-change-transform"
         data-me
         aria-hidden="true"
       >
-        Tú
+        {lang === 'es' ? 'Tú' : 'You'}
       </div>
     </>
   );

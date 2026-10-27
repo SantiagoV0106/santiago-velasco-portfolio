@@ -7,7 +7,10 @@
  *   - Tarjeta ......... src/components/projects/ProjectCard.tsx    (inclinación 3D, apertura del caso)
  *   - Vista previa .... src/components/projects/ProjectMock.tsx    (imagen, video o mock generado)
  *   - Detalle ......... src/components/projects/ProjectDialog.tsx  (ventana con el caso completo)
+ *
+ * Textos traducibles: los campos con tipo `Localized` llevan { es: "...", en: "..." }.
  */
+import type { Localized } from "@/i18n/ui";
 
 export type ProjectCategory = "Sitio web" | "Plataforma" | "UI/UX";
 
@@ -25,13 +28,13 @@ export interface ProjectPalette {
 
 /** Medio real del proyecto. Si existe, reemplaza al mock generado. */
 export type ProjectMedia =
-  | { type: "image"; src: string; alt: string }
+  | { type: "image"; src: string; alt: Localized }
   | {
       type: "video";
       src: string;
       /** Imagen que se ve mientras el video carga */
       poster?: string;
-      alt: string;
+      alt: Localized;
     };
 
 export interface ProjectLinks {
@@ -45,13 +48,14 @@ export interface Project {
   /** Identificador único, útil si luego creas páginas /proyectos/[slug] */
   slug: string;
   name: string;
-  sector: string;
+  sector: Localized;
+  /** Se usa para filtrar; su etiqueta traducida está en src/i18n/ui.ts → gallery.categories */
   category: ProjectCategory;
   stack: string[];
-  role: string;
+  role: Localized;
   year?: number;
-  summary: string;
-  highlights: string[];
+  summary: Localized;
+  highlights: Localized<string[]>;
   links?: ProjectLinks;
   /** Portada real (imagen o video). Guarda los archivos en /public/projects/ */
   cover?: ProjectMedia;

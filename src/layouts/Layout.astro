@@ -1,17 +1,23 @@
 ---
 import '@/styles/global.css';
-import { BOOT_STORAGE_KEY, site } from '@/data/site';
+import { BOOT_STORAGE_KEY } from '@/data/site';
+import { routes, t, type Lang } from '@/i18n/ui';
 
 interface Props {
+  lang: Lang;
   title?: string;
   description?: string;
 }
 
-const { title = `${site.name} · ${site.role}`, description = site.description } = Astro.props;
+const { lang } = Astro.props;
+const meta = t(lang).meta;
+const title = Astro.props.title ?? meta.title;
+const description = Astro.props.description ?? meta.description;
+const alternates = Object.entries(routes) as [Lang, string][];
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -20,7 +26,13 @@ const { title = `${site.name} · ${site.role}`, description = site.description }
     <meta name="theme-color" content="#e6e8eb" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
+    <!-- Versiones por idioma (SEO) -->
+    <!-- Define `site` en astro.config.mjs (tu dominio) para que estas URLs sean absolutas -->
+    {alternates.map(([code, path]) => <link rel="alternate" hreflang={code} href={Astro.site ? new URL(path, Astro.site).href : path} />)}
+    <link rel="alternate" hreflang="x-default" href={Astro.site ? new URL(routes.es, Astro.site).href : routes.es} />
+
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content={lang === 'es' ? 'es_CO' : 'en_US'} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
 
@@ -33,8 +45,8 @@ const { title = `${site.name} · ${site.role}`, description = site.description }
     />
 
     <!--
-      Si en esta sesión ya se "creó" el portafolio, se marca <html class="booted">
-      antes del primer pintado para que la pantalla de comando no parpadee al recargar.
+      Si en esta sesión ya se vio la intro, se marca <html class="booted">
+      antes del primer pintado para que no parpadee al recargar o cambiar de idioma.
     -->
     <script is:inline define:vars={{ key: BOOT_STORAGE_KEY }}>
       try {

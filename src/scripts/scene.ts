@@ -1,18 +1,16 @@
 /**
  * Escena global (vanilla TS, sin React):
  *  - Cambia el "mundo" (colores del body) según la sección en el centro de la pantalla.
- *  - Controla la sección fija "De Figma a producción" (etapas, código, Lighthouse).
+ *  - Controla la sección fija "De Figma a producción" (etapas y líneas de código).
+ *  - Anima el switch de idioma y conserva la sección actual al cambiar de idioma.
  *  - Barra de progreso, regla "Y: px", ticker de tecnologías y etiqueta "Tú" del cursor.
  *  - Peso variable en el título de contacto ([data-stretch]) y animación de aparición (.reveal).
  */
 
 type World = 'canvas' | 'paper' | 'code' | 'sun' | 'blue';
 
-const STAGE_WORLDS: [World, string][] = [
-  ['canvas', 'Diseño'],
-  ['code', 'Código'],
-  ['paper', 'Producto'],
-];
+/** Mundo de cada etapa del proceso; sus nombres llegan traducidos en data-stage-labels */
+const STAGE_WORLDS: World[] = ['canvas', 'code', 'paper'];
 
 const clamp = (v: number, min: number, max: number) => Math.min(max, Math.max(min, v));
 
@@ -36,24 +34,8 @@ export function initScene() {
   const layers = [...document.querySelectorAll<HTMLElement>('[data-stage]')];
   const codeLines = [...document.querySelectorAll<HTMLElement>('[data-code-line]')];
   const procBar = document.querySelector<HTMLElement>('[data-process-bar]');
-  const rings = [...document.querySelectorAll<SVGCircleElement>('[data-lh-ring]')];
-  const nums = [...document.querySelectorAll<SVGTextElement>('[data-lh-num]')];
+  const stageLabels = (proc?.dataset.stageLabels ?? '').split('|');
   let stage = -1;
-  let lighthouseDone = false;
-
-  const runLighthouse = () => {
-    if (lighthouseDone) return;
-    lighthouseDone = true;
-    rings.forEach((r) => (r.style.strokeDashoffset = '0'));
-    const t0 = performance.now();
-    const tick = (t: number) => {
-      const k = clamp((t - t0) / 1300, 0, 1);
-      const v = String(Math.round(100 * (1 - Math.pow(1 - k, 3))));
-      nums.forEach((n) => (n.textContent = v));
-      if (k < 1) requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
-  };
 
   const updateProcess = () => {
     if (!proc) return { inside: false, stage: 0 };
@@ -68,7 +50,6 @@ export function initScene() {
         el.classList.toggle('is-on', i === s);
         el.setAttribute('aria-hidden', String(i !== s));
       });
-      if (s === 2) runLighthouse();
     }
     const sub = s === 1 ? clamp((p - 0.34) / 0.25, 0, 1) : s > 1 ? 1 : 0;
     const shown = Math.ceil(sub * codeLines.length);
@@ -88,8 +69,7 @@ export function initScene() {
   };
   const updateWorld = (procState: { inside: boolean; stage: number }) => {
     if (procState.inside) {
-      const [w, label] = STAGE_WORLDS[procState.stage];
-      setWorld(w, label);
+      setWorld(STAGE_WORLDS[procState.stage], stageLabels[procState.stage] ?? '');
       return;
     }
     const mid = window.innerHeight / 2;
@@ -168,6 +148,30 @@ export function initScene() {
     );
     document.addEventListener('pointerleave', () => (me.style.opacity = '0'));
   }
+
+  /* ---------- Switch de idioma ---------- */
+  // Anima el interruptor y abre la otra versión en la misma sección (/#proyectos → /en/#proyectos)
+  document.querySelectorAll<HTMLAnchorElement>('[data-lang-switch]').forEach((link) => {
+    link.addEventListener('click', (e) => {
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+      e.preventDefault();
+      const mid = window.innerHeight / 2;
+      const current = [...document.querySelectorAll<HTMLElement>('main > section[id], main > header[id]')].find((el) => {
+        const r = el.getBoundingClientRect();
+        return r.top <= mid && r.bottom >= mid;
+      });
+      const hash = current && current.id !== 'inicio' ? `#${current.id}` : '';
+      const target = link.getAttribute('href') + hash;
+
+      const knob = link.querySelector<HTMLElement>('[data-lang-knob]');
+      if (knob) knob.classList.toggle('translate-x-full');
+      link.querySelectorAll<HTMLElement>('[data-lang-option]').forEach((opt) => {
+        opt.classList.toggle('text-world');
+        opt.classList.toggle('text-muted');
+      });
+      window.setTimeout(() => window.location.assign(target), reduce ? 0 : 260);
+    });
+  });
 
   /* ---------- Bucle ---------- */
   let tickerX = 0;

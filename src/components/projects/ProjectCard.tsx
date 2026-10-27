@@ -5,16 +5,20 @@
 import { useRef, type PointerEvent } from 'react';
 import type { Project } from '@/types/project';
 import { pad2 } from '@/lib/utils';
+import { pick, t, type Lang } from '@/i18n/ui';
 import ProjectMock from './ProjectMock';
 
 interface Props {
   project: Project;
   index: number;
   tilt: boolean;
+  lang: Lang;
   onOpen: (project: Project) => void;
 }
 
-export default function ProjectCard({ project, index, tilt, onOpen }: Props) {
+export default function ProjectCard({ project, index, tilt, lang, onOpen }: Props) {
+  const copy = t(lang).gallery;
+  const sector = pick(project.sector, lang);
   const tiltRef = useRef<HTMLDivElement>(null);
 
   const onMove = (e: PointerEvent<HTMLButtonElement>) => {
@@ -37,16 +41,16 @@ export default function ProjectCard({ project, index, tilt, onOpen }: Props) {
       onPointerLeave={onLeave}
       onClick={() => onOpen(project)}
       data-layer={`Card / ${project.name}`}
-      aria-label={`Ver detalle: ${project.name}, ${project.sector}`}
+      aria-label={`${copy.cardAria}: ${project.name}, ${sector}`}
     >
       <div ref={tiltRef} className="card-tilt w-full rounded-xl shadow-[0_18px_40px_rgba(18,20,24,0.18)]">
-        <ProjectMock project={project} />
+        <ProjectMock project={project} lang={lang} />
       </div>
       <div className="grid w-full grid-cols-[minmax(0,1fr)_auto] items-baseline gap-x-3 gap-y-1">
         <h3 className="m-0 text-[26px] leading-tight font-extrabold tracking-tight">{project.name}</h3>
         <span className="font-mono text-xs text-muted">{pad2(index + 1)}</span>
         <span className="text-[14.5px] text-muted">
-          {project.sector} · {project.category}
+          {sector} · {copy.categories[project.category]}
         </span>
         <span className="col-span-full mt-1.5 flex flex-wrap gap-1.5">
           {project.stack.map((s) => (
