@@ -7,9 +7,11 @@
  */
 import type { Project } from '@/types/project';
 import { cssVars } from '@/lib/utils';
+import { pick, t, type Lang } from '@/i18n/ui';
 
 interface Props {
   project: Project;
+  lang: Lang;
   /** En la tarjeta los videos se reproducen en silencio y en bucle */
   autoPlay?: boolean;
 }
@@ -91,10 +93,10 @@ function GeneratedMock({ project }: { project: Project }) {
   );
 }
 
-export default function ProjectMock({ project, autoPlay = true }: Props) {
+export default function ProjectMock({ project, lang, autoPlay = true }: Props) {
   const badge = project.isExample ? (
     <span className="absolute top-3 right-3 z-2 rounded bg-white/85 px-1.5 py-1 font-mono text-[10.5px] leading-none font-semibold tracking-wider text-ink uppercase">
-      Ejemplo
+      {t(lang).gallery.example}
     </span>
   ) : null;
 
@@ -104,7 +106,7 @@ export default function ProjectMock({ project, autoPlay = true }: Props) {
     return (
       <div className="relative aspect-4/3 max-w-full overflow-hidden rounded-xl">
         {badge}
-        <img src={cover.src} alt={cover.alt} loading="lazy" decoding="async" className="size-full object-cover" />
+        <img src={cover.src} alt={pick(cover.alt, lang)} loading="lazy" decoding="async" className="size-full object-cover" />
       </div>
     );
   }
@@ -116,7 +118,7 @@ export default function ProjectMock({ project, autoPlay = true }: Props) {
         <video
           src={cover.src}
           poster={cover.poster}
-          aria-label={cover.alt}
+          aria-label={pick(cover.alt, lang)}
           muted
           loop
           playsInline

@@ -6,9 +6,9 @@
  */
 import { useEffect, useRef, useState, type PointerEvent } from 'react';
 import { cssVars, hasFinePointer, prefersReducedMotion } from '@/lib/utils';
+import { t, type Lang } from '@/i18n/ui';
 
 const LINES = ['Santiago', 'Velasco'] as const;
-const PEER_MESSAGES = ['¡Hola! Bienvenido', 'Revisando espaciados…', 'Este frame va a producción', 'Mira los proyectos ↓'];
 const WEIGHT = { base: 800, near: 900, far: 380, radius: 300 };
 
 interface Box {
@@ -18,7 +18,10 @@ interface Box {
   h: number;
 }
 
-export default function Hero() {
+export default function Hero({ lang }: { lang: Lang }) {
+  const ui = t(lang);
+  const copy = ui.hero;
+  const PEER_MESSAGES = copy.peer;
   const heroRef = useRef<HTMLElement>(null);
   const frameRef = useRef<HTMLDivElement>(null);
   const charsRef = useRef<HTMLSpanElement[]>([]);
@@ -142,7 +145,7 @@ export default function Hero() {
   };
 
   const tag = picked.size
-    ? `${picked.size} ${picked.size === 1 ? 'capa seleccionada' : 'capas seleccionadas'}`
+    ? `${picked.size} ${picked.size === 1 ? copy.pickedOne : copy.pickedMany}`
     : 'Santiago Velasco';
 
   let index = 0;
@@ -152,7 +155,7 @@ export default function Hero() {
       ref={heroRef}
       id="inicio"
       data-world="canvas"
-      data-label="Lienzo"
+      data-label={ui.worlds.canvas}
       className="hero-canvas relative overflow-hidden pt-32 pb-20 md:pt-40 md:pb-24"
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
@@ -162,11 +165,11 @@ export default function Hero() {
     >
       <div className="container-x relative flex flex-col gap-10 md:gap-12">
         <div className="flex justify-between font-mono text-xs text-muted">
-          <span>Frame · Inicio</span>
+          <span>{copy.frame}</span>
           <span className="tabular-nums">{viewport}</span>
         </div>
 
-        <div ref={frameRef} className="sel-frame relative mt-6 max-w-full self-start" data-layer="Texto / Nombre">
+        <div ref={frameRef} className="sel-frame relative mt-6 max-w-full self-start" data-layer={copy.layerName}>
           <span className="sel-tag">{tag}</span>
           <h1 className="hero-name rise m-0" aria-label="Santiago Velasco">
             {LINES.map((line) => (
@@ -197,21 +200,20 @@ export default function Hero() {
         </div>
 
         <div className="mt-4 grid gap-7 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
-          <p className="m-0 max-w-[30ch] text-xl leading-snug text-balance md:text-2xl" data-layer="Texto / Intro">
-            Programador frontend y diseñador UI/UX. Convierto diseños de Figma en productos web rápidos, accesibles y
-            escalables.
+          <p className="m-0 max-w-[30ch] text-xl leading-snug text-balance md:text-2xl" data-layer={copy.layerIntro}>
+            {copy.lede}
           </p>
-          <div className="flex flex-wrap gap-3" data-layer="Grupo / Acciones">
+          <div className="flex flex-wrap gap-3" data-layer={copy.layerActions}>
             <a className="btn btn-primary" href="#proyectos">
-              Ver proyectos <span className="arr">→</span>
+              {copy.ctaProjects} <span className="arr">→</span>
             </a>
             <a className="btn" href="#contacto">
-              Hablemos
+              {copy.ctaContact}
             </a>
           </div>
         </div>
         <p className="m-0 hidden font-mono text-xs text-muted lg:block">
-          Mueve el cursor sobre el nombre · Arrastra sobre el lienzo para seleccionar letras
+          {copy.hint}
         </p>
       </div>
 

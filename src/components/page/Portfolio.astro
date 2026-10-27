@@ -1,0 +1,57 @@
+---
+/**
+ * Página completa del portafolio, compartida por las dos rutas:
+ *   src/pages/index.astro     → español (/)
+ *   src/pages/en/index.astro  → inglés  (/en/)
+ *
+ * Islas de React (cargan JS): Boot, Hero, Inspector, Gallery, Terminal, CopyEmail.
+ * El resto se envía como HTML estático.
+ */
+import Layout from '@/layouts/Layout.astro';
+import Boot from '@/components/boot/Boot';
+import Nav from '@/components/layout/Nav';
+import Inspector from '@/components/layout/Inspector';
+import WorldPill from '@/components/layout/WorldPill';
+import Hero from '@/components/hero/Hero';
+import Process from '@/components/process/Process';
+import Gallery from '@/components/projects/Gallery';
+import About from '@/components/about/About';
+import Terminal from '@/components/about/Terminal';
+import Contact from '@/components/contact/Contact';
+import CopyEmail from '@/components/contact/CopyEmail';
+import { projects } from '@/data/projects';
+import { site } from '@/data/site';
+import type { Lang } from '@/i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+---
+
+<Layout lang={lang}>
+  <Boot client:load lang={lang} />
+
+  <Nav lang={lang}>
+    <Inspector client:idle lang={lang} />
+  </Nav>
+  <WorldPill lang={lang} />
+
+  <main>
+    <Hero client:load lang={lang} />
+    <Process lang={lang} />
+    <Gallery client:idle projects={projects} lang={lang} />
+    <About lang={lang}>
+      <Terminal client:visible lang={lang} />
+    </About>
+    <Contact lang={lang}>
+      <CopyEmail client:visible email={site.email} lang={lang} />
+    </Contact>
+  </main>
+</Layout>
+
+<script>
+  import { initScene } from '@/scripts/scene';
+  initScene();
+</script>

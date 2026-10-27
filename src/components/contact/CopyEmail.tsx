@@ -4,14 +4,16 @@
  */
 import { useRef, useState } from 'react';
 import { copyText } from '@/lib/utils';
+import { t, type Lang } from '@/i18n/ui';
 
-export default function CopyEmail({ email }: { email: string }) {
+export default function CopyEmail({ email, lang }: { email: string; lang: Lang }) {
+  const text = t(lang).contact;
   const [status, setStatus] = useState('');
   const mailRef = useRef<HTMLAnchorElement>(null);
 
   const copy = async () => {
     if (await copyText(email)) {
-      setStatus('Copiado ✓');
+      setStatus(text.copied);
       window.setTimeout(() => setStatus(''), 2400);
       return;
     }
@@ -24,7 +26,7 @@ export default function CopyEmail({ email }: { email: string }) {
       selection?.removeAllRanges();
       selection?.addRange(range);
     }
-    setStatus('Seleccionado: usa Ctrl/Cmd + C');
+    setStatus(text.selected);
   };
 
   return (
@@ -37,7 +39,7 @@ export default function CopyEmail({ email }: { email: string }) {
         {email}
       </a>
       <button type="button" className="btn btn-primary" onClick={copy}>
-        Copiar correo
+        {text.copy}
       </button>
       <span className="font-mono text-[13px]" role="status">
         {status}

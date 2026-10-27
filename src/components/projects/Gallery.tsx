@@ -14,27 +14,28 @@
  */
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { Project, ProjectCategory } from '@/types/project';
+import { t, type Lang } from '@/i18n/ui';
 import { clamp, hasFinePointer, pad2, prefersReducedMotion } from '@/lib/utils';
 import ProjectCard from './ProjectCard';
 import ProjectDialog from './ProjectDialog';
 
-type Filter = 'Todos' | ProjectCategory;
+type Filter = 'all' | ProjectCategory;
 
-const FILTERS: { value: Filter; label: string }[] = [
-  { value: 'Todos', label: 'Todos' },
-  { value: 'Sitio web', label: 'Sitios web' },
-  { value: 'Plataforma', label: 'Plataformas' },
-  { value: 'UI/UX', label: 'UI/UX' },
-];
+const FILTERS: Filter[] = ['all', 'Sitio web', 'Plataforma', 'UI/UX'];
 
 const PIN_MIN_WIDTH = 1024; // breakpoint lg
 
+/** Espacio libre a la derecha del último proyecto al terminar el scroll horizontal */
+const endSpace = () => Math.max(48, window.innerWidth * 0.08);
+
 interface Props {
   projects: Project[];
+  lang: Lang;
 }
 
-export default function Gallery({ projects }: Props) {
-  const [filter, setFilter] = useState<Filter>('Todos');
+export default function Gallery({ projects, lang }: Props) {
+  const copy = t(lang).gallery;
+  const [filter, setFilter] = useState<Filter>('all');
   const [open, setOpen] = useState<Project | null>(null);
   const [pinned, setPinned] = useState(false);
   const [pinHeight, setPinHeight] = useState<number>();
@@ -45,7 +46,7 @@ export default function Gallery({ projects }: Props) {
   const travel = useRef(0);
 
   const list = useMemo(
-    () => projects.filter((p) => filter === 'Todos' || p.category === filter),
+    () => projects.filter((p) => filter === 'all' || p.category === filter),
     [projects, filter],
   );
 
@@ -59,7 +60,11 @@ export default function Gallery({ projects }: Props) {
       if (track) track.style.transform = '';
       return;
     }
-    travel.current = Math.max(0, track.scrollWidth - window.innerWidth);
+    // Se mide hasta el borde del último proyecto (no scrollWidth) y se suma un respiro final
+    const cards = track.querySelectorAll<HTMLElement>('.project-card');
+    const last = cards[cards.length - 1];
+    const end = last ? last.offsetLeft + last.offsetWidth : track.scrollWidth;
+    travel.current = Math.max(0, end + endSpace() - window.innerWidth);
     setPinHeight(window.innerHeight + travel.current);
   }, []);
 
@@ -104,7 +109,7 @@ export default function Gallery({ projects }: Props) {
     <section
       id="proyectos"
       data-world="sun"
-      data-label="Galería"
+      data-label={t(lang).worlds.gallery}
       aria-labelledby="galeria-titulo"
       className={`gallery relative ${pinned ? '' : 'is-free'}`}
     >
@@ -118,28 +123,28 @@ export default function Gallery({ projects }: Props) {
         >
           <div className="container-x flex flex-wrap items-end justify-between gap-6">
             <div>
-              <p className="eyebrow">Proyectos seleccionados</p>
+              <p className="eyebrow">{copy.eyebrow}</p>
               <h2 id="galeria-titulo" className="h2 text-[clamp(56px,10vw,150px)]">
-                Galería
+                {copy.title}
                 <span className="ml-[0.2em] align-top font-mono text-[0.22em] font-medium tracking-normal">
                   {pad2(list.length)}
                 </span>
               </h2>
             </div>
-            <div className="flex flex-wrap gap-2" role="group" aria-label="Filtrar proyectos">
+            <div className="flex flex-wrap gap-2" role="group" aria-label={copy.filtersLabel}>
               {FILTERS.map((f) => {
-                const active = filter === f.value;
+                const active = filter === f;
                 return (
                   <button
-                    key={f.value}
+                    key={f}
                     type="button"
                     aria-pressed={active}
-                    onClick={() => setFilter(f.value)}
+                    onClick={() => setFilter(f)}
                     className={`h-9.5 cursor-pointer rounded-full border-[1.5px] border-fg px-4 text-sm font-semibold transition-colors ${
                       active ? 'bg-fg text-world' : 'bg-transparent text-fg hover:bg-surface'
                     }`}
                   >
-                    {f.label}
+                    {f === 'all' ? copy.all : copy.filters[f]}
                   </button>
                 );
               })}
@@ -148,22 +153,24 @@ export default function Gallery({ projects }: Props) {
 
           <div
             ref={trackRef}
-            className="gallery-track flex gap-5 will-change-transform md:gap-7"
-            style={{ paddingLeft: 'var(--gutter-l)', paddingRight: 'var(--gutter-r)' }}
+            className="gallery-track relative flex gap-5 will-change-transform md:gap-7"
+            style={{ paddingLeft: 'var(--gutter-l)' }}
           >
             {list.map((project, i) => (
-              <ProjectCard key={project.slug} project={project} index={i} tilt={tilt} onOpen={setOpen} />
+              <ProjectCard key={project.slug} project={project} index={i} tilt={tilt} lang={lang} onOpen={setOpen} />
             ))}
+            {/* Respiro final: en móvil deja espacio tras la última tarjeta al deslizar */}
+            <span aria-hidden="true" className="w-[max(var(--gutter-r),8vw)] flex-none" />
           </div>
 
           <p className="container-x m-0 font-mono text-xs text-muted">
-            Proyectos · Abre una tarjeta para ver el detalle
-            {!pinned ? ' · Desliza para ver más' : ''}
+            {copy.note}
+            {!pinned ? copy.swipe : ''}
           </p>
         </div>
       </div>
 
-      <ProjectDialog project={open} onClose={() => setOpen(null)} />
+      <ProjectDialog project={open} lang={lang} onClose={() => setOpen(null)} />
     </section>
   );
 }
